@@ -156,14 +156,9 @@ header .navbar a {
   color: var(--text-default);
 }
 
-#navbar-indicator {
-  height: 3px;
-  background-color: var(--secondary);
-
-  transition: all 0.3s ease-out;
-
-  position: absolute;
-  bottom: 1px;
+header .navbar a.underline {
+  text-decoration: underline;
+  color: var(--text-strong);
 }
 
 /******** TABLE ********/
