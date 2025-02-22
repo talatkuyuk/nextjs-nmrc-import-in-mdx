@@ -5,7 +5,7 @@ import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 
 import type { Frontmatter } from "@/types";
 import { getRandomInteger } from "@/utils";
-import { getMarkdownFromSlug, getMarkdownFiles } from "@/utils/file";
+import { getMarkdownFromSlug, getMarkdownFiles, toSlug } from "@/utils/file";
 import { components } from "@/mdxComponents";
 import ErrorComponent from "@/components/ErrorComponent";
 import LoadingComponent from "@/components/LoadingComponent";
@@ -72,10 +72,7 @@ export default async function Post({ params }: Props) {
 export async function generateStaticParams() {
   const files = getMarkdownFiles();
 
-  const article = (f: string) => f.includes("article");
-
-  return files.filter(article).map((filename) => ({
-    // replace the last dot with dash in the filename for slug
-    slug: filename.replace(/\.(?=[^.]*$)/, "-"),
+  return files.map((filename) => ({
+    slug: toSlug(filename),
   }));
 }

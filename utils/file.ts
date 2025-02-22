@@ -5,14 +5,24 @@ import { getFrontmatter } from "next-mdx-remote-client/utils";
 
 import type { Post, Frontmatter } from "@/types";
 
+type MarkdownFilename = `${string}.md` | `${string}.mdx`;
+
 export const RE = /\.mdx?$/; // Only .md(x) files
 
-export function getMarkdownExtension(
-  fileName: `${string}.md` | `${string}.mdx`
-): "md" | "mdx" {
+export function getMarkdownExtension(fileName: MarkdownFilename): "md" | "mdx" {
   const match = fileName.match(/\.mdx?$/);
 
   return match![0].substring(1) as "md" | "mdx";
+}
+
+export function toFilename(slug: string): MarkdownFilename {
+  // replace the last dash with dot
+  return slug.replace(/-(?=[^-]*$)/, ".") as MarkdownFilename;
+}
+
+export function toSlug(filename: string): string {
+  // replace the last dot with dash
+  return filename.replace(/\.(?=[^.]*$)/, "-");
 }
 
 export const getSource = async (
@@ -52,10 +62,7 @@ export const getMarkdownFromSlug = async (
 > => {
   if (!/-mdx?$/.test(slug)) return;
 
-  // replace the last dash with dot in the slug for filename
-  const filename = slug.replace(/-(?=[^-]*$)/, ".") as
-    | `${string}.md`
-    | `${string}.mdx`;
+  const filename = toFilename(slug);
 
   const fullPath = path.join(process.cwd(), "data", filename);
 
@@ -83,8 +90,7 @@ export const getPostInformation = (filename: string): Post | undefined => {
 
   const post: Post = {
     ...frontmatter,
-    // replace the last dot with dash in the filename for slug
-    slug: filename.replace(/\.(?=[^.]*$)/, "-"),
+    slug: toSlug(filename),
   };
 
   return post;
