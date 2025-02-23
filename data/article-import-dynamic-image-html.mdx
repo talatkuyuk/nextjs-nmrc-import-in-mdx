@@ -8,10 +8,10 @@ date: Mar 12, 2025
 
 _Read in {readingTime}, written by **{frontmatter.author}**_
 
+<Link href={"/articles"}>back to articles</Link>
+
 ### Import image dynamically and use it `<img />` tag
 
-export const _image = await import("../../../data/images/image.png");
+export const _image = await import("../../../data/blog-images/image.png");
 
 <img src={_image} />
-
-<Link href={"/articles"}>back to articles</Link>

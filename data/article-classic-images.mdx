@@ -8,14 +8,20 @@ date: Mar 01, 2025
 
 _Read in {readingTime}, written by **{frontmatter.author}**_
 
-### Classic images in markdown / mdx
+<Link href={"/articles"}>back to articles</Link>
+
+### Classic images in markdown / mdx (the image in the `public` directory)
 
 ![classic image](/image.png)
 
-<img alt="img tag" src="/image.png" height={60} width={60} />
+<img alt="img" src="/image.png" height={60} width={60} />
+<Image alt="next/image" src="/image.png" height={75} width={75} />
+<CustomImage alt="custom" src="/image.png" height={90} width={90} />
 
-<Image alt="next/image" src="/image.png" height={60} width={60} />
+### Blog images can be placed alongwith the articles via a custom middleware in `Next.js`
 
-<CustomImage alt="custom image" src="/image.png" height={120} width={120} />
+![classic image](/blog-images/image.png)
 
-<Link href={"/articles"}>back to articles</Link>
+<img alt="img" src="/blog-images/image.png" height={60} width={60} />
+<Image alt="next/image" src="/blog-images/image.png" height={75} width={75} />
+<CustomImage alt="custom" src="/blog-images/image.png" height={90} width={90} />

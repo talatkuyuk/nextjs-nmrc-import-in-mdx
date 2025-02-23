@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Notes
+
+The application is designed to find a solution import static assets with relative link in MDX.
+
+Nodejs runtime is supported for middleware as of `next@15.2.0-canary.40` thanks to experimental config `nodeMiddleware` in the next config and `{runtime: "nodejs"}` in the middleware. Hence, `middleware.ts` in the project can serve `blog-images` placed in a different directory other than public directory.
+
+**One step closer to include import statements for static assets with relative links in MDX.**
+
+**TODO:** create a **`recma`** plugin to change import statements with relative link with assignments of string url in the compiled source.
+
+**Bug:** On the other hand `next@15.2.0-canary.57` started to throw an error while importing `.mjs` file in MDX. I will open a PR.
+
 ## Getting Started
 
 First, run the development server:

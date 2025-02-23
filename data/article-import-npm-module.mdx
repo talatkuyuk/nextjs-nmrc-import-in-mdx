@@ -8,11 +8,12 @@ date: Mar 06, 2025
 
 _Read in {readingTime}, written by **{frontmatter.author}**_
 
+<Link href={"/articles"}>back to articles</Link>
+
 ### Import A NPM Module
 
-export const ImportedLink1 = await import("next/link");
-import ImportedLink2 from "next/link";
+import ImportedLink1 from "next/link";
+export const ImportedLink2 = (await import("next/link")).default;
 
 <ImportedLink1 href={"/articles"}>back to articles</ImportedLink1>
 <ImportedLink2 href={"/articles"}>back to articles</ImportedLink2>
-<DynamikLink href={"/articles"}>back to articles</DynamikLink>
