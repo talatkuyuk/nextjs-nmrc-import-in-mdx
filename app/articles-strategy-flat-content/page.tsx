@@ -8,12 +8,13 @@ export const metadata: Metadata = {
   title: "Ipikuka Articles with Flat Content Strategy",
 };
 
+const directory = "data/articles-strategy-flat-content";
+
 export default async function Articles() {
-  const dir = "articles-strategy-flat-content";
-  const files = getMarkdownFiles(dir);
+  const files = getMarkdownFiles(directory);
 
   const posts = files
-    .map((f) => getPostInformation(dir, f))
+    .map((f) => getPostInformation(directory, f))
     .filter((post): post is Post => post !== undefined)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 

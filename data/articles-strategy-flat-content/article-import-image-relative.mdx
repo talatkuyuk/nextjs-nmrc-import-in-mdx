@@ -14,7 +14,7 @@ _Read in {readingTime}, written by **{frontmatter.author}**_
 
 Relative path resolution is handled by `recma-mdx-change-props`
 
-import imgUrl from "../blog-assets/image.png";
+import imgUrl from "./blog-assets/image.png";
 
 <img src={imgUrl} height={60} width={60} />
 
@@ -22,4 +22,4 @@ import imgUrl from "../blog-assets/image.png";
 
 'rehype-mdx-import-media'
 
-![alt](../blog-assets/image.png)
+![alt](./blog-assets/image.png)
