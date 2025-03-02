@@ -70,9 +70,12 @@ export const getMarkdownFromSlug = async (
 
   const filename = toFilename(slug);
 
-  const fullPath = path.join(process.cwd(), directory, filename);
+  const projectDir = process.cwd();
+  const filePath = path.join(projectDir, directory, filename);
+  const relativePath = path.relative(projectDir, filePath);
+  const folderPath = path.dirname(relativePath);
 
-  if (fs.existsSync(fullPath)) {
+  if (fs.existsSync(filePath)) {
     const source = await getSource(directory, filename);
 
     if (!source) return;
@@ -80,7 +83,7 @@ export const getMarkdownFromSlug = async (
     return {
       source,
       format: getMarkdownExtension(filename),
-      path: path.join(directory, filename),
+      path: folderPath,
     };
   }
 };
