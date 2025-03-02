@@ -1,0 +1,25 @@
+---
+title: "Import images with relative path"
+author: "ipikuka"
+date: Mar 02, 2025
+---
+
+# {frontmatter.title}
+
+_Read in {readingTime}, written by **{frontmatter.author}**_
+
+<Link href={"/articles-strategy-flat-content"}>back to articles</Link>
+
+### Import image via relative path (with html syntax)
+
+Relative path resolution is handled by `recma-mdx-change-props`
+
+import imgUrl from "../blog-assets/image.png";
+
+<img src={imgUrl} height={60} width={60} />
+
+### Import image via via relative path (with markdown syntax)
+
+'rehype-mdx-import-media'
+
+![alt](../blog-assets/image.png)

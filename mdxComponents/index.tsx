@@ -14,6 +14,6 @@ export const components: MDXComponents = {
   CustomImage: function CustomImage(props: ImageProps) {
     return <Image {...props} />;
   },
-  DynamicLink: dynamic(() => import("next/link")),
   Link,
+  DynamicLink: dynamic(() => import("next/link")),
 };

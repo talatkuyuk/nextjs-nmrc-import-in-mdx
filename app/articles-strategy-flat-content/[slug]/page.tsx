@@ -15,10 +15,12 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+const directory = "articles-strategy-flat-content";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
-  const file = await getMarkdownFromSlug(slug);
+  const file = await getMarkdownFromSlug(directory, slug);
 
   if (!file) return {};
 
@@ -35,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Post({ params }: Props) {
   const { slug } = await params;
 
-  const result = await getMarkdownFromSlug(slug);
+  const result = await getMarkdownFromSlug(directory, slug);
 
   if (!result) {
     return <ErrorComponent error="The source could not found !" />;
@@ -70,7 +72,7 @@ export default async function Post({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const files = getMarkdownFiles();
+  const files = getMarkdownFiles(directory);
 
   return files.map((filename) => ({
     slug: toSlug(filename),

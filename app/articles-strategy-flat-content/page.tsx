@@ -5,24 +5,30 @@ import { getPostInformation, getMarkdownFiles } from "@/utils/file";
 import type { Post } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Ipikuka Articles",
+  title: "Ipikuka Articles with Flat Content Strategy",
 };
 
 export default async function Articles() {
-  const files = getMarkdownFiles();
+  const dir = "articles-strategy-flat-content";
+  const files = getMarkdownFiles(dir);
 
   const posts = files
-    .map(getPostInformation)
+    .map((f) => getPostInformation(dir, f))
     .filter((post): post is Post => post !== undefined)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
+  console.log(posts);
+
   return (
     <div>
+      <h1>Articles with Flat Content Strategy</h1>
       <ul className="articles">
         {posts.map((post) => (
           <li key={post.title}>
             <strong>
-              <Link href={`/articles/${post.slug}`}>{post.title}</Link>
+              <Link href={`/articles-strategy-flat-content/${post.slug}`}>
+                {post.title}
+              </Link>
             </strong>
             <p>
               <span>{String(post.date)}, </span>

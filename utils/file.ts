@@ -26,15 +26,19 @@ export function toSlug(filename: string): string {
 }
 
 export const getSource = async (
+  directory: string,
   filename: string
 ): Promise<string | undefined> => {
-  const sourcePath = path.join(process.cwd(), "data", filename);
+  const sourcePath = path.join(process.cwd(), directory, filename);
   if (!fs.existsSync(sourcePath)) return;
   return await fs.promises.readFile(sourcePath, "utf8");
 };
 
-export const getSourceSync = (filename: string): string | undefined => {
-  const sourcePath = path.join(process.cwd(), "data", filename);
+export const getSourceSync = (
+  directory: string,
+  filename: string
+): string | undefined => {
+  const sourcePath = path.join(process.cwd(), directory, filename);
   if (!fs.existsSync(sourcePath)) return;
   return fs.readFileSync(sourcePath, "utf8");
 };
@@ -42,9 +46,9 @@ export const getSourceSync = (filename: string): string | undefined => {
 /**
  * get the markdown file list
  */
-export const getMarkdownFiles = (): string[] => {
+export const getMarkdownFiles = (directory: string): string[] => {
   return fs
-    .readdirSync(path.join(process.cwd(), "data"))
+    .readdirSync(path.join(process.cwd(), directory))
     .filter((filePath: string) => RE.test(filePath));
 };
 
@@ -52,6 +56,7 @@ export const getMarkdownFiles = (): string[] => {
  * get the source and format from a slug !
  */
 export const getMarkdownFromSlug = async (
+  directory: string,
   slug: string
 ): Promise<
   | {
@@ -64,10 +69,10 @@ export const getMarkdownFromSlug = async (
 
   const filename = toFilename(slug);
 
-  const fullPath = path.join(process.cwd(), "data", filename);
+  const fullPath = path.join(process.cwd(), directory, filename);
 
   if (fs.existsSync(fullPath)) {
-    const source = await getSource(filename);
+    const source = await getSource(directory, filename);
 
     if (!source) return;
 
@@ -81,8 +86,11 @@ export const getMarkdownFromSlug = async (
 /**
  * get the frontmatter and slug of a file
  */
-export const getPostInformation = (filename: string): Post | undefined => {
-  const source = getSourceSync(filename);
+export const getPostInformation = (
+  directory: string,
+  filename: string
+): Post | undefined => {
+  const source = getSourceSync(directory, filename);
 
   if (!source) return;
 
