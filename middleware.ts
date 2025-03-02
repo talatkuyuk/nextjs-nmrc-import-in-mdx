@@ -10,22 +10,21 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     const imageName = url.split("/").at(-1);
     const imagePath = path.join(process.cwd(), url);
 
-    if (!fs.existsSync(imagePath)) {
-      return new NextResponse("File not found", { status: 404 });
-    }
-
     try {
       const data = fs.readFileSync(imagePath);
 
-      const ext = path.extname(imageName!).toLowerCase();
-      const contentType =
-        ext === ".png"
-          ? "image/png"
-          : ext === ".jpg" || ext === ".jpeg"
-          ? "image/jpeg"
-          : ext === ".gif"
-          ? "image/gif"
-          : "application/octet-stream";
+      const ext = path
+        .extname(imagePath)
+        .toLowerCase() as keyof typeof contentTypeMap;
+
+      const contentTypeMap = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+      };
+
+      const contentType = contentTypeMap[ext] || "application/octet-stream";
 
       return new NextResponse(data, {
         headers: {
