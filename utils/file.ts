@@ -62,6 +62,7 @@ export const getMarkdownFromSlug = async (
   | {
       source: string;
       format: "md" | "mdx";
+      path: string;
     }
   | undefined
 > => {
@@ -79,6 +80,7 @@ export const getMarkdownFromSlug = async (
     return {
       source,
       format: getMarkdownExtension(filename),
+      path: path.join(directory, filename),
     };
   }
 };

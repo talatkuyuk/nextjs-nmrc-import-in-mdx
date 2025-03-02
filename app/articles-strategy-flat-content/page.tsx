@@ -17,8 +17,6 @@ export default async function Articles() {
     .filter((post): post is Post => post !== undefined)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  console.log(posts);
-
   return (
     <div>
       <h1>Articles with Flat Content Strategy</h1>

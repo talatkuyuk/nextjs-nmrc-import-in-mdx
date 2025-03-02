@@ -43,7 +43,9 @@ export default async function Post({ params }: Props) {
     return <ErrorComponent error="The source could not found !" />;
   }
 
-  const { source, format } = result;
+  const { source, format, path } = result;
+
+  console.log({ path });
 
   const options: MDXRemoteOptions = {
     parseFrontmatter: true,
