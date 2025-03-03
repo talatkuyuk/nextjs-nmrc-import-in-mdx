@@ -1,0 +1,17 @@
+---
+title: "Import a component with extension .mjs in MDX via dynamic import"
+author: "ipikuka"
+date: Mar 04, 2025
+---
+
+# {frontmatter.title}
+
+_Read in {readingTime}, written by **{frontmatter.author}**_
+
+<Link href={"/articles-modules-components"}>back to articles</Link>
+
+### Import A Component with `.mjs` extension
+
+export const Bar = (await import("../../../mdxComponents/Bar.mjs")).default;
+
+<Bar />

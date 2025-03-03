@@ -20,6 +20,16 @@ const Navbar = () => {
       >
         Scoped Articles
       </Link>
+      <Link
+        href="/articles-modules-components"
+        className={
+          pathname.includes("component") || pathname.includes("module")
+            ? "underline"
+            : undefined
+        }
+      >
+        Articles /w Modules & Components
+      </Link>
     </div>
   );
 };
