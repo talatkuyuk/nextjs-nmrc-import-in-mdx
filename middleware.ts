@@ -7,7 +7,6 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   const url = req.nextUrl.pathname;
 
   if (url.startsWith("/data/")) {
-    const imageName = url.split("/").at(-1);
     const imagePath = path.join(process.cwd(), url);
 
     try {
@@ -42,5 +41,5 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
 
 export const config = {
   runtime: "nodejs",
-  matcher: "/blog-assets/:path*",
+  matcher: "/data/:path*",
 };
