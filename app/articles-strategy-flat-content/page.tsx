@@ -9,12 +9,13 @@ export const metadata: Metadata = {
 };
 
 const directory = "data/articles-strategy-flat-content";
+const path = "/articles-strategy-flat-content/";
 
 export default async function Articles() {
   const files = getMarkdownFiles(directory);
 
   const posts = files
-    .map((f) => getPostInformation(directory, f))
+    .map((file) => getPostInformation(directory, file))
     .filter((post): post is Post => post !== undefined)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
@@ -25,9 +26,7 @@ export default async function Articles() {
         {posts.map((post) => (
           <li key={post.title}>
             <strong>
-              <Link href={`/articles-strategy-flat-content/${post.slug}`}>
-                {post.title}
-              </Link>
+              <Link href={path + post.slug}>{post.title}</Link>
             </strong>
             <p>
               <span>{String(post.date)}, </span>

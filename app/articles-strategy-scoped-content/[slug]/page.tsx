@@ -5,7 +5,11 @@ import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 
 import type { Frontmatter } from "@/types";
 import { getRandomInteger } from "@/utils";
-import { getMarkdownFromSlug, getMarkdownFiles, toSlug } from "@/utils/file";
+import {
+  getMarkdownFromSlug,
+  toSlug,
+  getMarkdownFilesGlob,
+} from "@/utils/file";
 import { components } from "@/mdxComponents";
 import ErrorComponent from "@/components/ErrorComponent";
 import LoadingComponent from "@/components/LoadingComponent";
@@ -15,7 +19,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-const directory = "data/articles-strategy-flat-content";
+const directory = "data/articles-strategy-scoped-content";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -37,7 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Post({ params }: Props) {
   const { slug } = await params;
 
-  const result = await getMarkdownFromSlug(directory, slug);
+  console.log({ slug });
+
+  const result = await getMarkdownFromSlug(directory, decodeURIComponent(slug));
 
   if (!result) {
     return <ErrorComponent error="The source could not found !" />;
@@ -74,9 +80,13 @@ export default async function Post({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const files = getMarkdownFiles(directory);
+  const files = getMarkdownFilesGlob(directory);
 
-  return files.map((filename) => ({
+  const params = files.map((filename) => ({
     slug: toSlug(filename),
   }));
+
+  console.log("Generated static params:", params); // This logs to the terminal
+
+  return params;
 }
