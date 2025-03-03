@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import fg from "fast-glob";
 
 import { getFrontmatter } from "next-mdx-remote-client/utils";
 
@@ -10,9 +11,11 @@ type MarkdownFilename = `${string}.md` | `${string}.mdx`;
 export const RE = /\.mdx?$/; // Only .md(x) files
 
 export function getMarkdownExtension(fileName: MarkdownFilename): "md" | "mdx" {
-  const match = fileName.match(/\.mdx?$/);
+  // const match = fileName.match(/\.mdx?$/);
+  // const ext = match![0].substring(1);
+  const ext = path.extname(fileName);
 
-  return match![0].substring(1) as "md" | "mdx";
+  return ext as "md" | "mdx";
 }
 
 export function toFilename(slug: string): MarkdownFilename {
@@ -22,9 +25,36 @@ export function toFilename(slug: string): MarkdownFilename {
 
 export function toSlug(filename: string): string {
   // replace the last dot with dash
-  return filename.replace(/\.(?=[^.]*$)/, "-");
+  return filename.replace(/\.(?=[^.]*$)/, "-").replace(path.sep, "/");
 }
 
+/**
+ * get all markdown/MDX files from the specified directory
+ */
+export const getMarkdownFiles = (directory: string): string[] => {
+  return fs
+    .readdirSync(path.join(process.cwd(), directory))
+    .filter((filePath: string) => RE.test(filePath));
+  // .map((filePath) => path.join(directory, filePath));
+};
+
+/**
+ * get all markdown/MDX files from the specified directory, including subdirectories.
+ */
+export const getMarkdownFilesGlob = (directory: string): string[] => {
+  return fg.sync(["**/*.mdx", "**/*.md"], {
+    cwd: directory,
+    onlyFiles: true,
+  });
+  // .map((filePath) => path.join(directory, filePath));
+};
+
+/**
+ *
+ * @param directory relative path from project root to file
+ * @param filename filename
+ *
+ */
 export const getSource = async (
   directory: string,
   filename: string
@@ -32,24 +62,6 @@ export const getSource = async (
   const sourcePath = path.join(process.cwd(), directory, filename);
   if (!fs.existsSync(sourcePath)) return;
   return await fs.promises.readFile(sourcePath, "utf8");
-};
-
-export const getSourceSync = (
-  directory: string,
-  filename: string
-): string | undefined => {
-  const sourcePath = path.join(process.cwd(), directory, filename);
-  if (!fs.existsSync(sourcePath)) return;
-  return fs.readFileSync(sourcePath, "utf8");
-};
-
-/**
- * get the markdown file list
- */
-export const getMarkdownFiles = (directory: string): string[] => {
-  return fs
-    .readdirSync(path.join(process.cwd(), directory))
-    .filter((filePath: string) => RE.test(filePath));
 };
 
 /**
@@ -86,6 +98,21 @@ export const getMarkdownFromSlug = async (
       path: folderPath,
     };
   }
+};
+
+/**
+ *
+ * @param directory relative path from project root to file
+ * @param filename filename
+ *
+ */
+export const getSourceSync = (
+  directory: string,
+  filename: string
+): string | undefined => {
+  const sourcePath = path.join(process.cwd(), directory, filename);
+  if (!fs.existsSync(sourcePath)) return;
+  return fs.readFileSync(sourcePath, "utf8");
 };
 
 /**
