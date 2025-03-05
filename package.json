@@ -22,9 +22,7 @@
     "react-dom": "^19.0.0",
     "react-spinners": "^0.15.0",
     "recma-mdx-change-imports": "^1.1.2",
-    "recma-mdx-escape-missing-components": "^1.1.2",
     "recma-mdx-import-media": "^1.0.1",
-    "rehype-mdx-import-media": "^1.2.0",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "unified": "^11.0.5"
