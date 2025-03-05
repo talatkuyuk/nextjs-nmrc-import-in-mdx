@@ -41,8 +41,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Post({ params }: Props) {
   const { slug } = await params;
 
-  console.log({ slug });
-
   const result = await getMarkdownFromSlug(directory, decodeURIComponent(slug));
 
   if (!result) {
@@ -50,8 +48,6 @@ export default async function Post({ params }: Props) {
   }
 
   const { source, format, path } = result;
-
-  console.log({ path });
 
   const options: MDXRemoteOptions = {
     parseFrontmatter: true,
@@ -62,7 +58,7 @@ export default async function Post({ params }: Props) {
       format,
       remarkPlugins,
       rehypePlugins,
-      recmaPlugins,
+      recmaPlugins: recmaPlugins(path), // path is relative path to the MDX document from project root
       baseUrl: import.meta.url,
     },
   };
@@ -82,11 +78,7 @@ export default async function Post({ params }: Props) {
 export async function generateStaticParams() {
   const files = getMarkdownFilesGlob(directory);
 
-  const params = files.map((filename) => ({
+  return files.map((filename) => ({
     slug: toSlug(filename),
   }));
-
-  console.log("Generated static params:", params); // This logs to the terminal
-
-  return params;
 }

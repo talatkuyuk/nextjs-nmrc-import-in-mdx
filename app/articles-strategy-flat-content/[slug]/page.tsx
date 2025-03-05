@@ -45,8 +45,6 @@ export default async function Post({ params }: Props) {
 
   const { source, format, path } = result;
 
-  console.log({ path });
-
   const options: MDXRemoteOptions = {
     parseFrontmatter: true,
     scope: {
@@ -56,7 +54,7 @@ export default async function Post({ params }: Props) {
       format,
       remarkPlugins,
       rehypePlugins,
-      recmaPlugins,
+      recmaPlugins: recmaPlugins(path), // path is relative path to the MDX document from project root
       baseUrl: import.meta.url,
     },
   };

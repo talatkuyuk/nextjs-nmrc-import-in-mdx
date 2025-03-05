@@ -24,7 +24,7 @@ export function toFilename(slug: string): MarkdownFilename {
 }
 
 export function toSlug(filename: string): string {
-  // replace the last dot with dash
+  // replace the last dot with dash         // Convert to URL-friendly /
   return filename.replace(/\.(?=[^.]*$)/, "-").replace(path.sep, "/");
 }
 
@@ -35,7 +35,6 @@ export const getMarkdownFiles = (directory: string): string[] => {
   return fs
     .readdirSync(path.join(process.cwd(), directory))
     .filter((filePath: string) => RE.test(filePath));
-  // .map((filePath) => path.join(directory, filePath));
 };
 
 /**
@@ -46,7 +45,6 @@ export const getMarkdownFilesGlob = (directory: string): string[] => {
     cwd: directory,
     onlyFiles: true,
   });
-  // .map((filePath) => path.join(directory, filePath));
 };
 
 /**
