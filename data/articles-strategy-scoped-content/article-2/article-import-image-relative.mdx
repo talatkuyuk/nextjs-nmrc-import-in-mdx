@@ -6,30 +6,39 @@ date: Mar 02, 2025
 
 # {frontmatter.title}
 
-_Read in {readingTime}, written by **{frontmatter.author}**_
+<Link href={"/articles-strategy-scoped-content"}>🔙</Link>
+_Read in {readingTime} min., written by **{frontmatter.author}**_
 
-<Link href={"/articles-strategy-scoped-content"}>back to articles</Link>
+### 1. Import image via relative path (using `html` syntax)
 
-### Import image via relative path (with html syntax)
+Normally, importing an image using a **relative path** (starting with **`./`** or **`../`**) in MDX
+results in an error with the message `unknown extension .png`. However,
+thanks to the **[`recma-mdx-change-imports`](https://github.com/ipikuka/recma-mdx-change-imports)** plugin,
+relative path resolution is handled seamlessly.
 
-Relative path resolution is handled by `recma-mdx-change-props`
+import imgUrlA from "./article-assets/image.png";
+import imgUrlB from "../blog-assets/image.png";
 
-import imgUrl from "./article-assets/image.png";
+| html syntax                                                                                       | proof                            |
+| :------------------------------------------------------------------------------------------------ | -------------------------------- |
+| `import imgUrlA from "./article-assets/image.png";`<br /><br />`<img alt="html" src={imgUrlA} />` | <img alt="html" src={imgUrlA} /> |
+| `import imgUrlB from "../blog-assets/image.png";`<br /><br />`<img alt="html" src={imgUrlB} />`   | <img alt="html" src={imgUrlB} /> |
 
-<img src={imgUrl} height={60} width={60} />
+You don’t even need to write an import statement, thanks to **`recma-mdx-import-media`**.
+It automatically includes import statements for assets with relative paths in the compiled MDX source.
 
-import imgUrl2 from "../blog-assets/image.png";
+| html syntax                                           | proof                                               |
+| :---------------------------------------------------- | --------------------------------------------------- |
+| `<img alt="html" src="./article-assets/image.png" />` | <img alt="html" src="./article-assets/image.png" /> |
+| `<img alt="html" src="../blog-assets/image.png" />`   | <img alt="html" src="../blog-assets/image.png" />   |
 
-<img src={imgUrl2} height={60} width={60} />
+### 2. Import image via relative path (using `markdown` syntax)
 
-### Import image via via relative path (with markdown syntax)
+With the **[`recma-mdx-import-media`](https://github.com/ipikuka/recma-mdx-import-media)** and
+**[`recma-mdx-change-imports`](https://github.com/ipikuka/recma-mdx-change-imports)** plugins working together,
+you can seamlessly display images using a **relative path** in Markdown/MDX.
 
-using 'recma-mdx-import-media', it is possible below syntax
-
-![alt](./article-assets/image.png)
-
-<img src={"./article-assets/image.png"} height={60} width={60} />
-
-![alt](../blog-assets/image.png)
-
-<img src={"../blog-assets/image.png"} height={60} width={60} />
+| markdown syntax                                           | proof                                                   |
+| :-------------------------------------------------------- | ------------------------------------------------------- |
+| `![markdown](./article-assets/image.png "Article Image")` | ![markdown](./article-assets/image.png "Article Image") |
+| `![markdown](../blog-assets/image.png "Blog Image")`      | ![markdown](../blog-assets/image.png "Blog Image")      |

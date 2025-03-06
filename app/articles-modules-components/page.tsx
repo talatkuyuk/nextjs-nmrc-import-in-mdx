@@ -22,6 +22,10 @@ export default async function Articles() {
   return (
     <div>
       <h1>Articles with importing modules and components</h1>
+      <p>
+        This page is designed for demonstrating of importing components and
+        modules into MDX.
+      </p>
       <ul className="articles">
         {posts.map((post) => (
           <li key={post.title}>

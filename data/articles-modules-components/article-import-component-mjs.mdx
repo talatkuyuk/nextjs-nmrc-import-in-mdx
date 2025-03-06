@@ -6,12 +6,27 @@ date: Mar 03, 2025
 
 # {frontmatter.title}
 
-_Read in {readingTime}, written by **{frontmatter.author}**_
+<Link href={"/articles-modules-components"}>🔙</Link>
+_Read in {readingTime} min., written by **{frontmatter.author}**_
 
-<Link href={"/articles-modules-components"}>back to articles</Link>
+### 1. Import A Component with `.mjs` extension
 
-### Import A Component with `.mjs` extension
+The **relative link** is relative to the module which **`MDXRemote`** called,
+since the `baseUrl` is setted as `import.meta.url` in the options.
+
+`import Bar from "../../../mdxComponents/Bar.mjs";`
 
 import Bar from "../../../mdxComponents/Bar.mjs";
 
 <Bar />
+
+### 2. Import A Component with `.mjs` extension via dynamic import
+
+The **relative link** is relative to the module which **`MDXRemote`** called,
+since the `baseUrl` is setted as `import.meta.url` in the options.
+
+`export const Bar = (await import("../../../mdxComponents/Bar.mjs")).default;`
+
+export const Bar2 = (await import("../../../mdxComponents/Bar.mjs")).default;
+
+<Bar2 />

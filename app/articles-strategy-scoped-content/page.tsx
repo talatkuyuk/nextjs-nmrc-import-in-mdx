@@ -22,6 +22,35 @@ export default async function Articles() {
   return (
     <div>
       <h1>Articles with Scoped Content Strategy</h1>
+      <p>
+        Each article is inside its own directory, and images are stored inside
+        that directory. There is a directory for common assets as well.
+      </p>
+      <pre>
+        <code>/data</code>
+        <br />
+        <code> {"  "}/articles-strategy-scoped-content</code>
+        <br />
+        <code>{"      "}/article-1</code>
+        <br />
+        <code>{"          "}my-article-x.mdx</code>
+        <br />
+        <code>{"          "}/article-assets</code>
+        <br />
+        <code>{"              "}imageX.png</code>
+        <br />
+        <code>{"      "}/article-2</code>
+        <br />
+        <code>{"          "}my-article-y.mdx</code>
+        <br />
+        <code>{"          "}/article-assets</code>
+        <br />
+        <code>{"              "}imageY.png</code>
+        <br />
+        <code>{"      "}/blog-assets</code>
+        <br />
+        <code>{"          "}image.png</code>
+      </pre>
       <ul className="articles">
         {posts.map((post) => (
           <li key={post.title}>

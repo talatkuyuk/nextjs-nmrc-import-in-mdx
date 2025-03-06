@@ -6,41 +6,37 @@ date: Mar 01, 2025
 
 # {frontmatter.title}
 
-_Read in {readingTime}, written by **{frontmatter.author}**_
+<Link href={"/articles-strategy-flat-content"}>🔙</Link>
+_Read in {readingTime} min., written by **{frontmatter.author}**_
 
-<Link href={"/articles-strategy-flat-content"}>back to articles</Link>
+### 1. Image syntax in markdown / mdx (in `public` directory)
 
-### Classic image syntax in markdown / mdx (`public` directory)
+Normally, we put the images in **`public`** directory, and use **root-relative links** (`/pathname-to-image`)
+for referring it. Pay attention to that the images should be in the public directory.
 
-![classic image](/image.png "title")
+| format    | syntax                                       | proof                                                             |
+| :-------- | :------------------------------------------- | ----------------------------------------------------------------- |
+| markdown  | `![markdown](/image.png)`                    | ![markdown](/image.png)                                           |
+| html      | `<img alt="html" src="/image.png" />`        | <img alt="html" src="/image.png" />                               |
+| component | `<Image alt="component" src="/image.png" />` | <Image alt="component" src="/image.png" width={60} height={60} /> |
 
-<img alt="img" src="/image.png" height={60} width={60} />
+### 2. Image syntax in markdown / mdx (in a custom directory)
 
-<Image alt="next/image" src="/image.png" height={60} width={60} />
+In order images to be placed alongwith the articles, we should create **a custom middleware** in `Next.js`,
+which is available as of the version `next@15.2.0-canary.41`
 
-<CustomImage alt="custom" src="/image.png" height={60} width={60} />
+Thanks to that `middleware`, the **`data`** directory containing the articles will be accessible for GET requests.
+To verify this, let's display the images from the **`data`** directory.
 
-### Blog images can be placed alongwith the articles via a custom middleware in `Next.js`
+| format    | syntax                                                                                       | proof                                                                                                             |
+| :-------- | :------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| markdown  | `![markdown](/data/articles-strategy-flat-content/blog-assets/image.png)`                    | ![markdown](/data/articles-strategy-flat-content/blog-assets/image.png)                                           |
+| html      | `<img alt="html" src="/data/articles-strategy-flat-content/blog-assets/image.png" />`        | <img alt="html" src="/data/articles-strategy-flat-content/blog-assets/image.png" />                               |
+| component | `<Image alt="component" src="/data/articles-strategy-flat-content/blog-assets/image.png" />` | <Image alt="component" src="/data/articles-strategy-flat-content/blog-assets/image.png" width={60} height={60} /> |
 
-![classic image](/data/articles-strategy-flat-content/blog-assets/image.png "title")
+As you can see, referencing images based on their directory can be a bit challenging.
+If you move the article to another directory, you’ll also need to update the **src** attribute, which can be cumbersome.
 
-<img
-  alt="img"
-  src="/data/articles-strategy-flat-content/blog-assets/image.png"
-  height={60}
-  width={60}
-/>
+That is why we need to use **relative path** instead of **root-relative path** for the assets.
 
-<Image
-  alt="next/image"
-  src="/data/articles-strategy-flat-content/blog-assets/image.png"
-  height={60}
-  width={60}
-/>
-
-<CustomImage
-  alt="custom"
-  src="/data/articles-strategy-flat-content/blog-assets/image.png"
-  height={60}
-  width={60}
-/>
+See how we can use **relative paths** starts with **`./`** or **`../`** in the next article.

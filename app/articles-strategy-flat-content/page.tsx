@@ -22,6 +22,23 @@ export default async function Articles() {
   return (
     <div>
       <h1>Articles with Flat Content Strategy</h1>
+      <p>
+        All MDX files are in one directory. Images are stored in a shared
+        directory.
+      </p>
+      <pre>
+        <code>/data</code>
+        <br />
+        <code> {"  "}/articles-strategy-flat-content</code>
+        <br />
+        <code>{"      "}article-1.mdx</code>
+        <br />
+        <code>{"      "}article-2.mdx</code>
+        <br />
+        <code>{"      "}/blog-assets</code>
+        <br />
+        <code>{"          "}image.png</code>
+      </pre>
       <ul className="articles">
         {posts.map((post) => (
           <li key={post.title}>

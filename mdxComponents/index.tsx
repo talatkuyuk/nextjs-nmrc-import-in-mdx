@@ -11,9 +11,6 @@ export const components: MDXComponents = {
     return <div id="mdx-layout">{props.children}</div>;
   },
   Image,
-  CustomImage: function CustomImage(props: ImageProps) {
-    return <Image {...props} />;
-  },
   Link,
   DynamicLink: dynamic(() => import("next/link")),
 };
