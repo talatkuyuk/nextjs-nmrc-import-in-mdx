@@ -3,11 +3,11 @@
 const Bar = ({ React }) => {
   React.useId(); // for testing
 
-  React.createElement(
+  return React.createElement(
     "div",
     { style: { color: "blue" } },
     "Imports work, so I am able to say HELLO from imported ",
-    React.createElement("code", null, React.createElement(Bar, null)),
+    React.createElement("code", null, "<Bar />"),
     " component."
   );
 };

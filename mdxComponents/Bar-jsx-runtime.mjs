@@ -5,7 +5,7 @@ const Bar = ({ jsx: _jsx, jsxs: _jsxs }) => {
     style: { color: "blue" },
     children: [
       "Imports work, so I am able to say HELLO from imported",
-      _jsx("code", { children: _jsx(Bar, {}) }),
+      _jsx("code", { children: "<Bar />" }),
       "component.",
     ],
   });
