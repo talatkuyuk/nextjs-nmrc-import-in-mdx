@@ -1,5 +1,5 @@
 ---
-title: "Import a module from a file"
+title: "Import a module from a file in MDX"
 author: "ipikuka"
 date: Mar 06, 2025
 ---
@@ -16,9 +16,10 @@ since the `baseUrl` is setted as `import.meta.url` in the options.
 
 `import random from "../../../mdxComponents/random.mjs";`
 
-import random from "../../../mdxComponents/random.mjs";
+import randomA from "../../../mdxComponents/random.mjs";
 
-importing a module works --> random integer is **{random(1, 100)}**
+| importing a module works | --> | random integer is **{randomA(1, 100)}** |
+| ------------------------ | --- | --------------------------------------- |
 
 ### 2. Import A Module via dynamic import
 
@@ -27,7 +28,8 @@ since the `baseUrl` is setted as `import.meta.url` in the options.
 
 `export const random = (await import("../../../mdxComponents/random.mjs")).default;`
 
-export const random2 = (await import("../../../mdxComponents/random.mjs"))
+export const randomB = (await import("../../../mdxComponents/random.mjs"))
   .default;
 
-importing a module works --> random integer is **{random2(1, 100)}**
+| importing a module works | --> | random integer is **{randomB(1, 100)}** |
+| ------------------------ | --- | --------------------------------------- |

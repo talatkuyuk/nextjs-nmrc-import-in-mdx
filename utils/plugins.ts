@@ -6,7 +6,6 @@ import recmaMdxImportMedia from "recma-mdx-import-media";
 import recmaMdxChangeImports, {
   type ChangeImportsOptions,
 } from "recma-mdx-change-imports";
-import recmaMdxImportReact from "recma-mdx-import-react";
 
 export const remarkPlugins: PluggableList = [remarkGfm];
 
@@ -20,7 +19,4 @@ export const recmaPlugins: (pathname: string) => PluggableList = (pathname) => [
 
   // turn imports with relative paths into constant variable declaration of resolvable URL string
   [recmaMdxChangeImports, { pathname } as ChangeImportsOptions],
-
-  // make React instance is available in the compiled source
-  recmaMdxImportReact,
 ];

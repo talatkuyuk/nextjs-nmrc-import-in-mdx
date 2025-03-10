@@ -17,7 +17,11 @@ export default async function Articles() {
   const posts = files
     .map((file) => getPostInformation(directory, file))
     .filter((post): post is Post => post !== undefined)
+    .filter((post) => !post.isDraft)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  // http://localhost:3000/articles-modules-components/article-import-component-mjs-mdx
+  // http://localhost:3000/articles-modules-components/article-import-module-from-file-mdx
 
   return (
     <div>

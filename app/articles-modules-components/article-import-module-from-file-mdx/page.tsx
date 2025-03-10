@@ -2,24 +2,22 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
 import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
+import { nodeTypes } from "@mdx-js/mdx";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import recmaMdxImportReact from "recma-mdx-import-react";
 
 import type { Frontmatter } from "@/types";
 import { getRandomInteger } from "@/utils";
-import { getMarkdownFromSlug, getMarkdownFiles, toSlug } from "@/utils/file";
+import { getMarkdownFromSlug } from "@/utils/file";
 import { components } from "@/mdxComponents";
 import ErrorComponent from "@/components/ErrorComponent";
 import LoadingComponent from "@/components/LoadingComponent";
-import { remarkPlugins, rehypePlugins, recmaPlugins } from "@/utils/plugins";
-
-type Props = {
-  params: Promise<{ slug: string }>;
-};
 
 const directory = "data/articles-modules-components";
+const slug = "article-import-module-from-file-mdx";
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-
+export async function generateMetadata(): Promise<Metadata> {
   const file = await getMarkdownFromSlug(directory, slug);
 
   if (!file) return {};
@@ -34,16 +32,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /**
  * "MDXRemote" to be rendered
  */
-export default async function Post({ params }: Props) {
-  const { slug } = await params;
-
+export default async function Post() {
   const result = await getMarkdownFromSlug(directory, slug);
 
   if (!result) {
     return <ErrorComponent error="The source could not found !" />;
   }
 
-  const { source, format, path } = result;
+  const { source, format } = result;
 
   const options: MDXRemoteOptions = {
     parseFrontmatter: true,
@@ -52,9 +48,8 @@ export default async function Post({ params }: Props) {
     },
     mdxOptions: {
       format,
-      remarkPlugins,
-      rehypePlugins,
-      recmaPlugins: recmaPlugins(path), // path is relative path to the MDX document from project root
+      remarkPlugins: [remarkGfm],
+      recmaPlugins: [recmaMdxImportReact],
       baseUrl: import.meta.url,
     },
   };
@@ -69,12 +64,4 @@ export default async function Post({ params }: Props) {
       />
     </Suspense>
   );
-}
-
-export async function generateStaticParams() {
-  const files = getMarkdownFiles(directory);
-
-  return files.map((filename) => ({
-    slug: toSlug(filename),
-  }));
 }
