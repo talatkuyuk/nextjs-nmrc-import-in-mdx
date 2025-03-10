@@ -16,23 +16,24 @@
     "fast-glob": "^3.3.3",
     "motion": "^12.4.10",
     "next": "^15.2.0-canary.56",
-    "next-mdx-remote-client": "^2.0.1",
-    "next-themes": "^0.4.4",
+    "next-mdx-remote-client": "^2.1.0",
+    "next-themes": "^0.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-spinners": "^0.15.0",
     "recma-mdx-change-imports": "^1.1.2",
     "recma-mdx-import-media": "^1.0.1",
+    "recma-mdx-import-react": "^1.0.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "unified": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.0",
-    "@types/node": "^22.13.9",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "eslint": "^9.21.0",
+    "eslint": "^9.22.0",
     "eslint-config-next": "15.1.7",
     "typescript": "^5.8.2"
   }

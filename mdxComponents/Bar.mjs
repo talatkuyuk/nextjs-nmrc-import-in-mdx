@@ -1,6 +1,4 @@
-import React from "react";
-
-const Bar = () => {
+const Bar = ({ React }) => {
   return React.createElement(
     "div",
     { style: { color: "blue" } },

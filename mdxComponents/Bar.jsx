@@ -1,6 +1,4 @@
-import React from "react";
-
-const Bar = () => {
+const Bar = ({ React }) => {
   return (
     <div style={{ color: "blue" }}>
       Imports work, so I am able to say HELLO from imported{" "}
