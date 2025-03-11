@@ -9,24 +9,59 @@ date: Mar 03, 2025
 <Link href={"/articles-modules-components"}>🔙</Link>
 _Read in {readingTime} min., written by **{frontmatter.author}**_
 
-### 1. Import A Server Component with `.mjs` extension
-
-The **relative link** is relative to the module which **`MDXRemote`** called,
+The **relative links** is relative to the module which **`MDXRemote`** called,
 since the `baseUrl` is setted as `import.meta.url` in the options.
 
-`import Bar from "../../../mdxComponents/Bar.mjs";`
+### 1. Import A React Server Component
 
-import Bar from "../../../mdxComponents/Bar.mjs";
+import BarA from "../../../mdxComponents/Bar.mjs";
+import BarR from "../../../mdxComponents/Bar-runtime-automatic.mjs";
 
-<Bar />
+|  runtime  | `<Bar />` &nbsp;&nbsp; component                                      |
+| :-------: | :-------------------------------------------------------------------- |
+|  classic  | `import Bar from "../../../mdxComponents/Bar.mjs";`                   |
+|           | **<BarA />**                                                          |
+| automatic | `import Bar from "../../../mdxComponents/Bar-runtime-automatic.mjs";` |
+|           | **<BarR />**                                                          |
 
-### 2. Import A Server Component with `.mjs` extension via dynamic import
+Here is a RSC that fetchs a text from an API.
 
-The **relative link** is relative to the module which **`MDXRemote`** called,
-since the `baseUrl` is setted as `import.meta.url` in the options.
+import TextA from "../../../mdxComponents/Text.mjs";
+import TextR from "../../../mdxComponents/Text-runtime-automatic.mjs";
 
-`export const Bar = (await import("../../../mdxComponents/Bar.mjs")).default;`
+|  runtime  | `<Text />` &nbsp;&nbsp; component                                       |
+| :-------: | :---------------------------------------------------------------------- |
+|  classic  | `import Text from "../../../mdxComponents/Text.mjs";`                   |
+|           | **<TextA />**                                                           |
+| automatic | `import Text from "../../../mdxComponents/Text-runtime-automatic.mjs";` |
+|           | **<TextR />**                                                           |
 
-export const Bar2 = (await import("../../../mdxComponents/Bar.mjs")).default;
+### 2. Import A React Server Component via dynamic import
 
-<Bar2 />
+export const BarB = (await import("../../../mdxComponents/Bar.mjs")).default;
+
+export const { default: BarZ } = await import(
+  "../../../mdxComponents/Bar-runtime-automatic.mjs"
+);
+
+|  runtime  | `<Bar />` &nbsp;&nbsp; component                                                                      |
+| :-------: | :---------------------------------------------------------------------------------------------------- |
+|  classic  | `export const Bar = (await import("../../../mdxComponents/Bar.mjs")).default;`                        |
+|           | **<BarB />**                                                                                          |
+| automatic | `export const { default: Bar } = (await import("../../../mdxComponents/Bar-runtime-automatic.mjs"));` |
+|           | **<BarZ />**                                                                                          |
+
+Here is a RSC that fetchs a text from an API.
+
+export const TextB = (await import("../../../mdxComponents/Text.mjs")).default;
+
+export const { default: TextZ } = await import(
+  "../../../mdxComponents/Text-runtime-automatic.mjs"
+);
+
+|  runtime  | `<Text />` &nbsp;&nbsp; component                                                                       |
+| :-------: | :------------------------------------------------------------------------------------------------------ |
+|  classic  | `export const Text = (await import("../../../mdxComponents/Text.mjs")).default;`                        |
+|           | **<TextB />**                                                                                           |
+| automatic | `export const { default: Text } = (await import("../../../mdxComponents/Text-runtime-automatic.mjs"));` |
+|           | **<TextZ />**                                                                                           |

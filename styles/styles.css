@@ -173,6 +173,11 @@ table {
   border-collapse: collapse;
 }
 
+thead tr:first-child {
+  background-color: var(--infobar);
+  color: var(--text-strong);
+}
+
 /******** LISTS ********/
 
 ul {
@@ -257,6 +262,8 @@ ul.articles a:hover::after {
 
 div#mdx-layout {
   padding-inline: 0.5rem;
+
+  margin-bottom: 2rem;
 }
 
 div#mdx-error {

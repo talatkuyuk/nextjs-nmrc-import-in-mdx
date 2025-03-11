@@ -5,7 +5,9 @@ import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 import { nodeTypes } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import recmaMdxImportReact from "recma-mdx-import-react";
+import recmaMdxImportReact, {
+  type ImportReactOptions,
+} from "recma-mdx-import-react";
 
 import type { Frontmatter } from "@/types";
 import { getRandomInteger } from "@/utils";
@@ -50,8 +52,22 @@ export default async function Post() {
       format,
       remarkPlugins: [remarkGfm],
       rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
-      recmaPlugins: [recmaMdxImportReact],
+      recmaPlugins: [
+        [
+          recmaMdxImportReact,
+          {
+            propertiesToBeInjected: [
+              ["React", "React"],
+              ["jsx", "_jsx"],
+              ["jsxs", "_jsxs"],
+            ],
+          } as ImportReactOptions,
+        ],
+      ],
       baseUrl: import.meta.url,
+    },
+    debug: {
+      compiledSource: true,
     },
   };
 

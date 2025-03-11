@@ -1,10 +1,7 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
-import { MDXClientAsync } from "next-mdx-remote-client";
-import {
-  serialize,
-  type SerializeOptions,
-} from "next-mdx-remote-client/serialize";
+import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 import { nodeTypes } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -44,7 +41,7 @@ export default async function Post() {
 
   const { source, format } = result;
 
-  const options: SerializeOptions = {
+  const options: MDXRemoteOptions = {
     parseFrontmatter: true,
     scope: {
       readingTime: getRandomInteger(5, 10),
@@ -53,26 +50,19 @@ export default async function Post() {
       format,
       remarkPlugins: [remarkGfm],
       rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
-      recmaPlugins: [recmaMdxImportReact],
+      recmaPlugins: [[recmaMdxImportReact]],
       baseUrl: import.meta.url,
     },
   };
 
-  const mdxSource = await serialize<Frontmatter>({
-    source,
-    options,
-  });
-
-  if ("error" in mdxSource) {
-    return <ErrorComponent error={mdxSource.error} />;
-  }
-
   return (
-    <>
-      it does not work, When MDXRemoto it says use "use client" but Next.js
-      doesn't recognize, when MDXClient it can't run await due to runSync, when
-      MDXClientAsync, can not pass components and can't import the client
-      component on the client
-    </>
+    <Suspense fallback={<LoadingComponent />}>
+      <MDXRemote
+        source={source}
+        options={options}
+        components={components}
+        onError={ErrorComponent}
+      />
+    </Suspense>
   );
 }
