@@ -17,7 +17,7 @@ import ErrorComponent from "@/components/ErrorComponent";
 import LoadingComponent from "@/components/LoadingComponent";
 
 const directory = "data/articles-modules-components";
-const slug = "article-import-rsc-component-mjs-mdx";
+const slug = "article-import-component-rsc-mjs-mdx";
 
 export async function generateMetadata(): Promise<Metadata> {
   const file = await getMarkdownFromSlug(directory, slug);
