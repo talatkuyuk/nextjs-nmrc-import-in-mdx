@@ -2,13 +2,13 @@
 
 const Bar = () => {
   return (
-    <div style={{ color: "blue" }}>
+    <span style={{ color: "var(--primary)" }}>
       Imports work, so I am able to say HELLO from imported
       <code>
         <Bar />
       </code>
       component.
-    </div>
+    </span>
   );
 };
 

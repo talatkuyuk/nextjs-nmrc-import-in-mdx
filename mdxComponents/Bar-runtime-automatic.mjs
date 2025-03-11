@@ -1,12 +1,12 @@
 // react server component
 
 const Bar = ({ jsx: _jsx, jsxs: _jsxs }) => {
-  return _jsxs("div", {
-    style: { color: "blue" },
+  return _jsxs("span", {
+    style: { color: "var(--primary)" },
     children: [
-      "Imports work, so I am able to say HELLO from imported",
+      "Imports work, Hello from imported ",
       _jsx("code", { children: "<Bar />" }),
-      "component.",
+      " component.",
     ],
   });
 };

@@ -4,9 +4,9 @@ const Bar = ({ React }) => {
   React.useId(); // for testing
 
   return React.createElement(
-    "div",
-    { style: { color: "blue" } },
-    "Imports work, so I am able to say HELLO from imported ",
+    "span",
+    { style: { color: "var(--primary)" } },
+    "Imports work, Hello from imported ",
     React.createElement("code", null, "<Bar />"),
     " component."
   );
