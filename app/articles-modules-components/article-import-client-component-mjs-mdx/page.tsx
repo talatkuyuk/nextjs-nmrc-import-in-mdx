@@ -1,7 +1,10 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
-import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
+import { MDXClientAsync } from "next-mdx-remote-client";
+import {
+  serialize,
+  type SerializeOptions,
+} from "next-mdx-remote-client/serialize";
 import { nodeTypes } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -15,7 +18,7 @@ import ErrorComponent from "@/components/ErrorComponent";
 import LoadingComponent from "@/components/LoadingComponent";
 
 const directory = "data/articles-modules-components";
-const slug = "article-import-component-mjs-mdx";
+const slug = "article-import-client-component-mjs-mdx";
 
 export async function generateMetadata(): Promise<Metadata> {
   const file = await getMarkdownFromSlug(directory, slug);
@@ -41,7 +44,7 @@ export default async function Post() {
 
   const { source, format } = result;
 
-  const options: MDXRemoteOptions = {
+  const options: SerializeOptions = {
     parseFrontmatter: true,
     scope: {
       readingTime: getRandomInteger(5, 10),
@@ -55,14 +58,21 @@ export default async function Post() {
     },
   };
 
+  const mdxSource = await serialize<Frontmatter>({
+    source,
+    options,
+  });
+
+  if ("error" in mdxSource) {
+    return <ErrorComponent error={mdxSource.error} />;
+  }
+
   return (
-    <Suspense fallback={<LoadingComponent />}>
-      <MDXRemote
-        source={source}
-        options={options}
-        components={components}
-        onError={ErrorComponent}
-      />
-    </Suspense>
+    <>
+      it does not work, When MDXRemoto it says use "use client" but Next.js
+      doesn't recognize, when MDXClient it can't run await due to runSync, when
+      MDXClientAsync, can not pass components and can't import the client
+      component on the client
+    </>
   );
 }
