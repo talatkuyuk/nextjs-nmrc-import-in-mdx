@@ -13,6 +13,7 @@ import { getMarkdownFromSlug } from "@/utils/file";
 import { components } from "@/mdxComponents";
 import ErrorComponent from "@/components/ErrorComponent";
 import LoadingComponent from "@/components/LoadingComponent";
+import WithErrorBoundary from "@/components/WithErrorBoundary";
 
 const directory = "data/articles-modules-components";
 const slug = "article-import-component-client-mjs-mdx";
@@ -56,13 +57,15 @@ export default async function Post() {
   };
 
   return (
-    <Suspense fallback={<LoadingComponent />}>
-      <MDXRemote
-        source={source}
-        options={options}
-        components={components}
-        onError={ErrorComponent}
-      />
-    </Suspense>
+    <WithErrorBoundary>
+      <Suspense fallback={<LoadingComponent />}>
+        <MDXRemote
+          source={source}
+          options={options}
+          components={components}
+          onError={ErrorComponent}
+        />
+      </Suspense>
+    </WithErrorBoundary>
   );
 }

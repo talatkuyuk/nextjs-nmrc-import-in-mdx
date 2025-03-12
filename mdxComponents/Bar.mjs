@@ -1,6 +1,12 @@
-// react server component
+import * as ReactModule from "react";
 
-const Bar = ({ React }) => {
+// react server component
+const Bar = ({ React = ReactModule }) => {
+  // for escaping pre-rendering error
+  if (!React) {
+    ("<Bar /> server component doesn't work due to missing React instance");
+  }
+
   React.useId(); // for testing
 
   return React.createElement(
@@ -8,7 +14,7 @@ const Bar = ({ React }) => {
     { style: { color: "var(--primary)" } },
     "Imports work, Hello from imported ",
     React.createElement("code", null, "<Bar />"),
-    " component."
+    " server component."
   );
 };
 

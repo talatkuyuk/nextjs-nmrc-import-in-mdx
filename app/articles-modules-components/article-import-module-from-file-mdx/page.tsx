@@ -49,6 +49,7 @@ export default async function Post() {
     mdxOptions: {
       format,
       remarkPlugins: [remarkGfm],
+      rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
       recmaPlugins: [recmaMdxImportReact],
       baseUrl: import.meta.url,
     },

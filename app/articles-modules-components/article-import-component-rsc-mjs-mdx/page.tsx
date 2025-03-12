@@ -66,9 +66,6 @@ export default async function Post() {
       ],
       baseUrl: import.meta.url,
     },
-    debug: {
-      compiledSource: true,
-    },
   };
 
   return (

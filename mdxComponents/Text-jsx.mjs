@@ -1,3 +1,5 @@
+import * as ReactModule from "react";
+
 async function getData() {
   const res = await fetch("http://localhost:3000/api/text");
   if (!res.ok) {
@@ -6,8 +8,12 @@ async function getData() {
   return res.text();
 }
 
-export default async function Post({ React }) {
+// react server component
+export default async function Text({ React = ReactModule }) {
   const text = await getData();
+
+  // for escaping pre-rendering error
+  if (!text) return <span>pre-rendering error ocuured !</span>;
 
   return (
     <span style={{ color: "var(--greenary)" }}>
