@@ -9,7 +9,7 @@ const Bar = ({
 }) => {
   // for escaping pre-rendering error
   if (!React) {
-    ("<Bar /> server component doesn't work due to missing React instance");
+    return "<Bar /> server component doesn't work due to missing React instance";
   }
 
   React.useId(); // for testing
