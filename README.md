@@ -1,48 +1,60 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Notes
+## Application
 
-The application is designed to find a solution import static assets with relative link in MDX.
+The application is designed for:
 
-Nodejs runtime is supported for middleware as of `next@15.2.0-canary.40` thanks to experimental config `nodeMiddleware` in the next config and `{runtime: "nodejs"}` in the middleware. Hence, `middleware.ts` in the project can serve `blog-images` placed in a different directory other than public directory.
-
-**One step closer to include import statements for static assets with relative links in MDX.**
-
-**TODO:** create a **`recma`** plugin to change import statements with relative link with assignments of string url in the compiled source.
-
-**Bug:** On the other hand `next@15.2.0-canary.57` started to throw an error while importing `.mjs` file in MDX. I will open a PR.
+1. finding a solution **import static assets with relative path** in MDX.
+2. finding a solution **import components/modules/functions** in MDX.
 
 ## Getting Started
 
-First, run the development server:
+First, run the development server and open [http://localhost:3000](http://localhost:3000) with your browser.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Import static assets with relative path in MDX
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Static assets which are located in a different directory other than `public` needs a `middleware` in `Next.js`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Create Middleware
 
-## Learn More
+Nodejs runtime is supported in the middlewares as of `next@15.2.0-canary.40` thanks to experimental config `nodeMiddleware` in the next config and `{runtime: "nodejs"}` in the middleware.
 
-To learn more about Next.js, take a look at the following resources:
+Hence, `middleware.ts` in the project can serve assets placed in a different directory other than public directory.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Employ two `recma` plugins
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+With the **[`recma-mdx-import-media`](https://github.com/ipikuka/recma-mdx-import-media)** and **[`recma-mdx-change-imports`](https://github.com/ipikuka/recma-mdx-change-imports)** plugins working together, you can seamlessly display images using **relative path** in Markdown/MDX.
 
-## Deploy on Vercel
+In this application, I am able to display images using _relative paths_.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```markdown
+Pay attention to that I am not using any import declarations at all !
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### using markdown syntax
+
+![article image](./article-assets/image.png "Article Image")
+![blog image](../blog-assets/image.png "Blog Image")
+
+### using html syntax
+
+<img alt="article image" src="./article-assets/image.png" />
+<img alt="blog image" src="../blog-assets/image.png" />
+```
+
+## Import components/modules/functions in MDX
+
+**[`next-mdx-remote-client`](https://github.com/ipikuka/next-mdx-remote-client)** provides feature for importing modules/functions/components.
+
+Importing a function or module from a file doesn't need anything extra in **`next-mdx-remote-client`**.
+
+But, importing a `React` component needs to use a `recma` plugin called **[`recma-mdx-import-react`](https://github.com/ipikuka/recma-mdx-import-react)**. This recma plugin ensures getting `React` instance from the arguments and makes the runtime props `{React, jsx, jsxs, jsxDev, Fragment}` is available in the dynamically imported components in the compiled source of MDX.
+
+## TODOs
+
+- importing React components from `.jsx` file.
+- importing React components from `.mjs` file with `jsx` syntax.
+- importing modules from `node_modules` in MDX.
