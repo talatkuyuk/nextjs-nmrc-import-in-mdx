@@ -24,7 +24,14 @@ async function getData() {
 }
 
 // react server component
-export default async function Text({ React = ReactModule }) {
+export default async function Text({ runtimeProps }) {
+  const { React = ReactModule } = runtimeProps;
+
+  // for escaping pre-rendering error
+  if (!React) {
+    return "<Text /> server component doesn't work due to missing React instance";
+  }
+
   let text;
 
   try {

@@ -2,7 +2,9 @@ import * as ReactModule from "react";
 
 // client component due to "useState" hook, but it is treated as rsc
 // the directive "use client"; doesn't work
-function ExampleForm({ React = ReactModule }) {
+function ExampleForm({ runtimeProps }) {
+  const { React = ReactModule } = runtimeProps;
+
   // for escaping pre-rendering error
   if (!React) {
     return "<ExampleForm /> client component doesn't work due to missing React instance";

@@ -9,7 +9,7 @@ async function getData() {
 }
 
 // react server component
-export default async function Text({ React = ReactModule }) {
+export default async function Text() {
   const text = await getData();
 
   // for escaping pre-rendering error

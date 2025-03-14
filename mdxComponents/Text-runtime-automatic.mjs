@@ -24,10 +24,14 @@ async function getData() {
 }
 
 // react server component
-export default async function Text({
-  jsx: _jsx = runtime.jsx,
-  jsxs: _jsxs = runtime.jsxs,
-}) {
+export default async function Text({ runtimeProps }) {
+  const { jsx: _jsx = runtime.jsx, jsxs: _jsxs = runtime.jsxs } = runtimeProps;
+
+  // for escaping pre-rendering error
+  if (!_jsx) {
+    return "<Text /> server component doesn't work due to missing jsx runtime";
+  }
+
   let text;
 
   try {

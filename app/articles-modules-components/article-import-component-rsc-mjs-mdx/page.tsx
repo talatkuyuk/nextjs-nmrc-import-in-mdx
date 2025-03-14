@@ -56,12 +56,9 @@ export default async function Post() {
         [
           recmaMdxImportReact,
           {
-            propertiesToBeInjected: [
-              ["React", "React"],
-              ["jsx", "_jsx"],
-              ["jsxs", "_jsxs"],
-            ],
-          } as ImportReactOptions,
+            arguments: ["React"],
+            runtimeProps: ["React", "jsx-runtime"],
+          } satisfies ImportReactOptions,
         ],
       ],
       baseUrl: import.meta.url,
