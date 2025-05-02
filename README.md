@@ -15,6 +15,13 @@ First, run the development server and open [http://localhost:3000](http://localh
 npm run dev
 ```
 
+Or, run the production mode and open [http://localhost:3000](http://localhost:3000) with your browser.
+
+```bash
+npm run build
+npm run start
+```
+
 ## Import static assets with relative path in MDX
 
 Static assets which are located in a different directory other than `public` needs a `middleware` in `Next.js`.
@@ -24,6 +31,11 @@ Static assets which are located in a different directory other than `public` nee
 Nodejs runtime is supported in the middlewares as of `next@15.2.0-canary.40` thanks to experimental config `nodeMiddleware` in the next config and `{runtime: "nodejs"}` in the middleware.
 
 Hence, `middleware.ts` in the project can serve assets placed in a different directory other than public directory.
+
+> [!WARNING]
+> The middleware works perfect in development/production mode in local; and can serve the static assets other than public.
+>
+> But, when deploy to the vercel, the middleware didn't work _(TO BE FIXED)_, I don't know the reason. To see the living web site [click here](https://next15-import-in-mdx.vercel.app/)
 
 ### Employ two `recma` plugins
 
