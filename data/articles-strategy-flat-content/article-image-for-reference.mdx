@@ -14,11 +14,11 @@ _Read in {readingTime} min., written by **{frontmatter.author}**_
 Normally, we put the images in **`public`** directory, and use **root-relative links** (`/pathname-to-image`)
 for referring it. Pay attention to that the images should be in the public directory.
 
-| format    | syntax                                       | proof                                                             |
-| :-------- | :------------------------------------------- | ----------------------------------------------------------------- |
-| markdown  | `![markdown](/image.png)`                    | ![markdown](/image.png)                                           |
-| html      | `<img alt="html" src="/image.png" />`        | <img alt="html" src="/image.png" />                               |
-| component | `<Image alt="component" src="/image.png" />` | <Image alt="component" src="/image.png" width={60} height={60} /> |
+| format    | syntax                                        | proof                                                              |
+| :-------- | :-------------------------------------------- | ------------------------------------------------------------------ |
+| markdown  | `![alt](/public-image.png)`                   | ![alt](/public-image.png ">60x60")                                 |
+| html      | `<img alt="alt" src="/public-image.png" />`   | <img alt="alt" src="/public-image.png" title=">60x60" />           |
+| component | `<Image alt="alt" src="/public-image.png" />` | <Image alt="alt" src="/public-image.png" width={60} height={60} /> |
 
 ### 2. Image syntax in markdown / mdx (in a custom directory)
 
@@ -28,11 +28,11 @@ which is available as of the version `next@15.2.0-canary.41`
 Thanks to that `middleware`, the **`data`** directory containing the articles will be accessible for GET requests.
 To verify this, let's display the images from the **`data`** directory.
 
-| format    | syntax                                                                                       | proof                                                                                                             |
-| :-------- | :------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| markdown  | `![markdown](/data/articles-strategy-flat-content/blog-assets/image.png)`                    | ![markdown](/data/articles-strategy-flat-content/blog-assets/image.png)                                           |
-| html      | `<img alt="html" src="/data/articles-strategy-flat-content/blog-assets/image.png" />`        | <img alt="html" src="/data/articles-strategy-flat-content/blog-assets/image.png" />                               |
-| component | `<Image alt="component" src="/data/articles-strategy-flat-content/blog-assets/image.png" />` | <Image alt="component" src="/data/articles-strategy-flat-content/blog-assets/image.png" width={60} height={60} /> |
+| format    | syntax                                                                                      | proof                                                                                                            |
+| :-------- | :------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| markdown  | `![alt](/data/articles-strategy-flat-content/blog-assets/blog-image.png)`                   | ![alt](/data/articles-strategy-flat-content/blog-assets/blog-image.png ">60x60")                                 |
+| html      | `<img alt="alt" src="/data/articles-strategy-flat-content/blog-assets/blog-image.png" />`   | <img alt="alt" src="/data/articles-strategy-flat-content/blog-assets/blog-image.png" title=">60x60" />           |
+| component | `<Image alt="alt" src="/data/articles-strategy-flat-content/blog-assets/blog-image.png" />` | <Image alt="alt" src="/data/articles-strategy-flat-content/blog-assets/blog-image.png" width={60} height={60} /> |
 
 As you can see, referencing images based on their directory can be a bit challenging.
 If you move the article to another directory, you’ll also need to update the **src** attribute, which can be cumbersome.
