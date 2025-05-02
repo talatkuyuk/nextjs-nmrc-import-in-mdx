@@ -1,7 +1,11 @@
 {
   "name": "next15-import-in-mdx",
   "version": "2.5.0",
-  "private": true,
+  "public": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talatkuyuk/next15-import-in-mdx.git"
+  },
   "scripts": {
     "dev": "next dev",
     "dev:d": "rm -rf .next && next dev",
