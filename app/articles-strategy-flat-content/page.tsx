@@ -29,7 +29,7 @@ export default async function Articles() {
       <pre>
         <code>/data</code>
         <br />
-        <code> {"  "}/articles-strategy-flat-content</code>
+        <code> {"  "}/articles</code>
         <br />
         <code>{"      "}article-1.mdx</code>
         <br />
