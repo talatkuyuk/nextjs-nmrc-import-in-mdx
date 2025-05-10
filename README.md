@@ -35,7 +35,7 @@ Hence, `middleware.ts` in the project can serve assets placed in a different dir
 > [!WARNING]
 > The middleware works perfect in development/production mode in local; and can serve the static assets other than public.
 >
-> But, when deploy to the vercel, the middleware didn't work _(TO BE FIXED)_, I don't know the reason. To see the living web site [click here](https://next15-import-in-mdx.vercel.app/)
+> **But, when deploy to the vercel, the middleware didn't work _(TO BE FIXED)_, I don't know the reason.** To see the living web site [click here](https://next15-import-in-mdx.vercel.app/)
 
 ### Employ two `recma` plugins
 
