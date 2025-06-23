@@ -14,7 +14,7 @@ const MotionFade = ({
     <motion.div
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 100 }}
-      transition={{ type: "easeIn", duration: 0.4 }}
+      transition={{ duration: 0.4, ease: "easeIn" }}
       key={pathname}
     >
       {children}
