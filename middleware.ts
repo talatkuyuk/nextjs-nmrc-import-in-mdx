@@ -8,30 +8,29 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
 
   if (url.startsWith("/data/")) {
     const imagePath = path.join(process.cwd(), url);
+    console.log({ imagePath });
 
     try {
       const data = fs.readFileSync(imagePath);
 
-      const ext = path
-        .extname(imagePath)
-        .toLowerCase() as keyof typeof contentTypeMap;
-
-      const contentTypeMap = {
+      const contentTypeMap: Record<string, string> = {
         ".png": "image/png",
         ".jpg": "image/jpeg",
         ".jpeg": "image/jpeg",
         ".gif": "image/gif",
       };
 
+      const ext = path.extname(imagePath).toLowerCase();
       const contentType = contentTypeMap[ext] || "application/octet-stream";
 
       return new NextResponse(data, {
         headers: {
           "Content-Type": contentType,
+          "Cache-Control": "public, max-age=31536000, immutable",
         },
       });
     } catch (err) {
-      console.error(`❌ Image not found: ${imagePath}`, err);
+      console.error(`Image not found: ${imagePath}`, err);
       return new NextResponse("Image not found", { status: 404 });
     }
   }
