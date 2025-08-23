@@ -1,10 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project powered with
 
 ## Application
 
 The application is designed for:
 
-1. finding a solution **import static assets with relative path** in MDX.
+1. finding a solution **import static assets with relative path using `./` and `../`** in MDX.
 2. finding a solution **import components/modules/functions** in MDX.
 
 ## Getting Started
@@ -28,14 +28,16 @@ Static assets which are located in a different directory other than `public` nee
 
 ### Create Middleware
 
-Nodejs runtime is supported in the middlewares as of `next@15.2.0-canary.40` thanks to experimental config `nodeMiddleware` in the next config and `{runtime: "nodejs"}` in the middleware.
+Nodejs runtime is supported in the middleware as of `next@15.5` as stable thanks to the config `{runtime: "nodejs"}` in the middleware.
 
 Hence, `middleware.ts` in the project can serve assets placed in a different directory other than public directory.
 
 > [!WARNING]
 > The middleware works perfect in development/production mode in local; and can serve the static assets other than public.
 >
-> **But, when deploy to the vercel, the middleware didn't work _(TO BE FIXED)_, I don't know the reason.** To see the living web site [click here](https://next15-import-in-mdx.vercel.app/)
+> **But, when deploy to the vercel, the middleware cant' find the assets. Because Vercel does not upload entire project directory. To keep **`/data`** directory accessible by middleware you need to set `outputFileTracingIncludes` option in the next config. This ensures the **`/data`** directory is packaged into serverless function bundle on Vercel so middleware can access it.**
+
+See [the living web site](https://next15-import-in-mdx.vercel.app/)
 
 ### Employ two `recma` plugins
 
