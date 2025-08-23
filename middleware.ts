@@ -18,6 +18,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
         ".jpg": "image/jpeg",
         ".jpeg": "image/jpeg",
         ".gif": "image/gif",
+        ".svg": "image/svg+xml",
       };
 
       const ext = path.extname(imagePath).toLowerCase();
@@ -26,7 +27,6 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
       return new NextResponse(data, {
         headers: {
           "Content-Type": contentType,
-          "Cache-Control": "public, max-age=31536000, immutable",
         },
       });
     } catch (err) {
