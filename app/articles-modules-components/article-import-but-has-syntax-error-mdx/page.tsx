@@ -1,12 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
-import {
-  evaluate,
-  type EvaluateOptions,
-  MDXRemote,
-  type MDXRemoteOptions,
-} from "next-mdx-remote-client/rsc";
+import { evaluate, type EvaluateOptions } from "next-mdx-remote-client/rsc";
 import { nodeTypes } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
