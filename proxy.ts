@@ -3,12 +3,11 @@ import path from "node:path";
 
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function middleware(req: NextRequest): Promise<NextResponse> {
+export async function proxy(req: NextRequest): Promise<NextResponse> {
   const url = req.nextUrl.pathname;
 
   if (url.startsWith("/data/")) {
     const imagePath = path.join(process.cwd(), url);
-    console.log({ imagePath });
 
     try {
       const data = fs.readFileSync(imagePath);
