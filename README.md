@@ -24,18 +24,18 @@ npm run start
 
 ## Import static assets with relative path in MDX
 
-Static assets which are located in a different directory other than `public` needs a `middleware` in `Next.js`.
+Static assets which are located in a different directory other than `public` needs a `proxy.ts` in `Next.js`.
 
-### Create Middleware
+### Create Proxy
 
-Nodejs runtime is supported in the middleware as of `next@15.5` as stable thanks to the config `{runtime: "nodejs"}` in the middleware.
+Nodejs runtime is supported in `proxy.ts` as of `next@16`.
 
-Hence, `middleware.ts` in the project can serve assets placed in a different directory other than public directory.
+Hence, `proxy.ts` in the project can serve assets placed in a different directory other than public directory.
 
 > [!WARNING]
-> The middleware works perfect in development/production mode in local; and can serve the static assets other than public.
+> The proxy works perfect in development/production mode in local; and can serve the static assets other than in public.
 >
-> **But, when deploy to the vercel, the middleware cant' find the assets. Because Vercel does not upload entire project directory. To keep **`/data`** directory accessible by middleware you need to set `outputFileTracingIncludes` option in the next config. This ensures the **`/data`** directory is packaged into serverless function bundle on Vercel so middleware can access it.**
+> **But, when deploy to the vercel, the proxy cant' find the assets. Because Vercel does not upload entire project directory. To keep **`/data`** directory accessible by proxy you need to set `outputFileTracingIncludes` option in the next config. This ensures the **`/data`** directory is packaged into serverless function bundle on Vercel so proxy can access it.**
 
 See [the living web site](https://nextjs-nmrc-import-in-mdx.vercel.app/)
 
