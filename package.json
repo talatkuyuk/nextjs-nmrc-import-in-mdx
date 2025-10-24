@@ -1,10 +1,10 @@
 {
-  "name": "next15-import-in-mdx",
+  "name": "nextjs-nmrc-import-in-mdx",
   "version": "2.7.12",
   "public": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/talatkuyuk/next15-import-in-mdx.git"
+    "url": "git+https://github.com/talatkuyuk/nextjs-nmrc-import-in-mdx.git"
   },
   "scripts": {
     "dev": "next dev",

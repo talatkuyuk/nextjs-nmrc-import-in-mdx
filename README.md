@@ -37,7 +37,7 @@ Hence, `middleware.ts` in the project can serve assets placed in a different dir
 >
 > **But, when deploy to the vercel, the middleware cant' find the assets. Because Vercel does not upload entire project directory. To keep **`/data`** directory accessible by middleware you need to set `outputFileTracingIncludes` option in the next config. This ensures the **`/data`** directory is packaged into serverless function bundle on Vercel so middleware can access it.**
 
-See [the living web site](https://next15-import-in-mdx.vercel.app/)
+See [the living web site](https://nextjs-nmrc-import-in-mdx.vercel.app/)
 
 ### Employ two `recma` plugins
 
