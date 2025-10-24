@@ -38,6 +38,5 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  runtime: "nodejs",
   matcher: "/data/:path*",
 };
